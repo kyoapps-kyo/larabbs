@@ -21,13 +21,13 @@ class VerificationCodesController extends Controller
 
             try {
                 $result = $easySms->send($phone, [
-                    'template' => config('easysms.gateways.aliyun.templates.register'),
+                    'template' => config('easysms.gateways.qcloud.templates.register'),
                     'data' => [
-                        'code' => $code
+                        $code,
                     ],
                 ]);
             } catch (\Overtrue\EasySms\Exceptions\NoGatewayAvailableException $exception) {
-                $message = $exception->getException('aliyun')->getMessage();
+                $message = $exception->getException('qloucd')->getMessage();
                 abort(500, $message ?: '短信发送异常');
             }
         }
@@ -36,6 +36,10 @@ class VerificationCodesController extends Controller
         $expiredAt = now()->addMinutes(5);
         // 缓存验证码 5 分钟过期。
         \Cache::put($key, ['phone' => $phone, 'code' => $code], $expiredAt);
+
+
+        \Log::debug('key：'.$key);
+        \Log::debug(\Cache::get( $key ));
 
         return response()->json([
             'key' => $key,
