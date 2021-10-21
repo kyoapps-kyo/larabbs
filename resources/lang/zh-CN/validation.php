@@ -115,6 +115,7 @@ return [
     'unique'      => ':attribute 已经存在。',
     'uploaded'    => ':attribute 上传失败。',
     'url'         => ':attribute 格式不正确。',
+    'phone'       => ':attribute 格式不正确。',
     'uuid'        => ':attribute 必须是有效的 UUID。',
 
     /*

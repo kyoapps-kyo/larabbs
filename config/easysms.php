@@ -23,6 +23,9 @@ return [
             'sdk_app_id' => env('SMS_QCLOUD_SDK_APP_ID'), // SDK APP ID
             'app_key' => env('SMS_QCLOUD_APP_KEY'), // APP KEY
             'sign_name' => '世聚建材', // 短信签名，如果使用默认签名，该字段可缺省（对应官方文档中的sign）
+            'templates' => [
+                'register' => env('SMS_QCLOUD_TEMPLATE_REGISTER'),
+            ],
         ],
     ],
 ];
