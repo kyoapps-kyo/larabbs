@@ -24,7 +24,7 @@ return [
             'app_key' => env('SMS_QCLOUD_APP_KEY'), // APP KEY
             'sign_name' => '世聚建材', // 短信签名，如果使用默认签名，该字段可缺省（对应官方文档中的sign）
             'templates' => [
-                'register' => env('SMS_QCLOUD_TEMPLATE_REGISTER'),
+                'register' => env('SMS_QCLOUD_TEMPLATE_REGISTER'),//短信模版ID
             ],
         ],
     ],
