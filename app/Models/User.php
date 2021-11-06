@@ -11,7 +11,7 @@ use Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements MustVerifyEmailContract, JWTSubject
+class User extends Authenticatable implements MustVerifyEmailContract,JWTSubject
 {
     use Traits\ActiveUserHelper;
     use Traits\LastActivedAtHelper;
@@ -51,6 +51,8 @@ class User extends Authenticatable implements MustVerifyEmailContract, JWTSubjec
     protected $hidden = [
         'password',
         'remember_token',
+        'weixin_openid',
+        'weixin_unionid'
     ];
 
     protected $casts = [

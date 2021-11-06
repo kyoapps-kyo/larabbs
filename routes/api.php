@@ -46,6 +46,19 @@ Route::prefix('v1')
                 // 图片验证码
                 Route::post('captchas', 'CaptchasController@store')
                 ->name('captchas.store');
+
+                // 游客可以访问的接口
+
+                // 某个用户的详情
+                Route::get('users/{user}', 'UsersController@show')
+                    ->name('users.show');
+
+                // 登录后可以访问的接口
+                Route::middleware('auth:api')->group(function() {
+                    // 当前登录用户信息
+                    Route::get('user', 'UsersController@me')
+                        ->name('user.show');
+                });
             });
 
     });
