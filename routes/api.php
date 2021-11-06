@@ -30,6 +30,8 @@ Route::prefix('v1')
 
         Route::middleware('throttle:' . config('api.rate_limits.access'))
             ->group(function () {
-
+                // 图片验证码
+                Route::post('captchas', 'CaptchasController@store')
+                ->name('captchas.store');
             });
     });
