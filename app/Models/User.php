@@ -43,6 +43,8 @@ class User extends Authenticatable implements MustVerifyEmailContract
         'password',
         'avatar',
         'introduction',
+        'weixin_openid',
+        'weixin_unionid'
     ];
 
     protected $hidden = [
