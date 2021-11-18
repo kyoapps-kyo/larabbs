@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::prefix('v1')
     ->namespace('Api')
     ->name('api.v1.')
@@ -32,7 +33,7 @@ Route::prefix('v1')
                     ->name('socials.authorizations.store');
                 // 登录
                 Route::post('authorizations', 'AuthorizationsController@store')
-                ->name('authorizations.store');
+                    ->name('authorizations.store');
                 // 刷新token
                 Route::put('authorizations/current', 'AuthorizationsController@update')
                     ->name('authorizations.update');
@@ -45,7 +46,7 @@ Route::prefix('v1')
             ->group(function () {
                 // 图片验证码
                 Route::post('captchas', 'CaptchasController@store')
-                ->name('captchas.store');
+                    ->name('captchas.store');
 
                 // 游客可以访问的接口
 
@@ -57,7 +58,7 @@ Route::prefix('v1')
                     ->name('categories.index');
                 // 某个用户发布的话题
                 Route::get('users/{user}/topics', 'TopicsController@userIndex')
-                ->name('users.topics.index');
+                    ->name('users.topics.index');
                 // 话题列表，详情
                 Route::resource('topics', 'TopicsController')->only([
                     'index', 'show'
@@ -70,7 +71,7 @@ Route::prefix('v1')
                     ->name('users.replies.index');
 
                 // 登录后可以访问的接口
-                Route::middleware('auth:api')->group(function() {
+                Route::middleware('auth:api')->group(function () {
                     // 当前登录用户信息
                     Route::get('user', 'UsersController@me')
                         ->name('user.show');
@@ -96,7 +97,9 @@ Route::prefix('v1')
                     // 通知统计
                     Route::get('notifications/stats', 'NotificationsController@stats')
                         ->name('notifications.stats');
+                    // 标记消息通知为已读
+                    Route::patch('user/read/notifications', 'NotificationsController@read')
+                        ->name('user.notifications.read');
                 });
             });
-
     });
