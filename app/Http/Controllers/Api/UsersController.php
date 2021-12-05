@@ -15,8 +15,8 @@ class UsersController extends Controller
     {
         $verifyData = \Cache::get($request->verification_key);
 
-       if (!$verifyData) {
-           abort(403, '验证码已失效');
+        if (!$verifyData) {
+            abort(403, '验证码已失效');
         }
 
         if (!hash_equals($verifyData['code'], $request->verification_code)) {
@@ -49,8 +49,7 @@ class UsersController extends Controller
     public function update(UserRequest $request)
     {
         $user = $request->user();
-
-        $attributes = $request->only(['name', 'email', 'introduction']);
+        $attributes = $request->only(['name', 'email', 'introduction', 'registration_id']);
 
         if ($request->avatar_image_id) {
             $image = Image::find($request->avatar_image_id);
@@ -68,5 +67,4 @@ class UsersController extends Controller
         UserResource::wrap('data');
         return UserResource::collection($user->getActiveUsers());
     }
-
 }

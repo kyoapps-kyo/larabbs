@@ -46,11 +46,11 @@ class AuthorizationsController extends Controller
                 $oauthUser = $driver->userFromToken($request->access_token);
             }
         } catch (\Exception $e) {
-           throw new AuthenticationException('参数错误，未获取用户信息');
+            throw new AuthenticationException('参数错误，未获取用户信息');
         }
 
         if (!$oauthUser->getId()) {
-           throw new AuthenticationException('参数错误，未获取用户信息');
+            throw new AuthenticationException('参数错误，未获取用户信息');
         }
 
         switch ($type) {
