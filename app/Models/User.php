@@ -9,19 +9,17 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Auth;
 use Spatie\Permission\Traits\HasRoles;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements MustVerifyEmailContract,JWTSubject
+class User extends Authenticatable implements MustVerifyEmailContract
 {
     use Traits\ActiveUserHelper;
     use Traits\LastActivedAtHelper;
-    use HasFactory, MustVerifyEmailTrait;
     use HasRoles;
+    use HasFactory, MustVerifyEmailTrait;
 
     use Notifiable {
         notify as protected laravelNotify;
     }
-
     public function notify($instance)
     {
         // 如果要通知的人是当前用户，就不必通知了！
@@ -42,8 +40,8 @@ class User extends Authenticatable implements MustVerifyEmailContract,JWTSubject
         'phone',
         'email',
         'password',
-        'avatar',
         'introduction',
+        'avatar',
         'weixin_openid',
         'weixin_unionid',
         'registration_id'
@@ -65,14 +63,14 @@ class User extends Authenticatable implements MustVerifyEmailContract,JWTSubject
         return $this->hasMany(Topic::class);
     }
 
-    public function replies()
-    {
-        return $this->hasMany(Reply::class);
-    }
-
     public function isAuthorOf($model)
     {
         return $this->id == $model->user_id;
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 
     public function markAsRead()
@@ -104,14 +102,5 @@ class User extends Authenticatable implements MustVerifyEmailContract,JWTSubject
         }
 
         $this->attributes['avatar'] = $path;
-    }
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
     }
 }
